@@ -4,6 +4,26 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { applyMiddleware, combineReducers, compose } from "redux";
+import thunk from "redux-thunk";
+
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+
+import newsReducer from "./store/reducers/newsReducer";
+import commentsReducer from "./store/reducers/commentsReducer";
+
+const rootReducer = combineReducers({
+  news: newsReducer,
+  comments: commentsReducer
+});
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = configureStore({
+  reducer: rootReducer
+}, composeEnhancers(applyMiddleware(thunk)))
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
