@@ -52,3 +52,14 @@ export const newsRemoveItem = (id) => {
         }
     }
 };
+
+export const addNewPost = (post) => {
+    return async dispatch => {
+        dispatch(newsRequest());
+        try {
+            await axios.post("/news", post);
+        } catch (error) {
+            dispatch(newsError(error));
+        }
+    }
+};
