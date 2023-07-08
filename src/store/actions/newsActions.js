@@ -1,5 +1,5 @@
 import axios from "../../axios-instance";
-import { NEWS_REQUEST, NEWS_SUCCESS, NEWS_ERROR } from "../actionTypes";
+import { NEWS_REQUEST, NEWS_SUCCESS, NEWS_ERROR, GET_POST_SUCCESS } from "../actionTypes";
 
 export const newsRequest = () => (
     { type: NEWS_REQUEST }
@@ -11,6 +11,10 @@ export const newsSuccess = responseItems => (
 
 export const newsError = (error) => (
     { type: NEWS_ERROR, error }
+);
+
+export const getPostSuccess = responseItem => (
+    { type: GET_POST_SUCCESS, responseItem }
 );
 
 
@@ -58,6 +62,30 @@ export const addNewPost = (post) => {
         dispatch(newsRequest());
         try {
             await axios.post("/news", post);
+        } catch (error) {
+            dispatch(newsError(error));
+        }
+    }
+};
+
+export const newsGetItem = (id) => {
+    return async dispatch => {
+        dispatch(newsRequest());
+        try {
+            const response = await axios.get(`/news/${id}`);
+            if (response.status === 200) { // OK
+                if (response.data !== null) {
+                    const item = {
+                        id: response.data.id,
+                        title: response.data.title,
+                        content: response.data.content,
+                        image: response.data.image,
+                        publication_date: response.data.publication_date
+                    }
+                    dispatch(getPostSuccess(item));
+                }
+            }
+
         } catch (error) {
             dispatch(newsError(error));
         }

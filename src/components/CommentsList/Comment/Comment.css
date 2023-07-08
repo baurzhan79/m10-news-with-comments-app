@@ -1,0 +1,43 @@
+.Comment {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border: 1px solid gray;
+  margin: 10px;
+  padding: 10px;
+  background-color: aliceblue;
+}
+
+.Comment-description {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.Comment-title {
+  font-weight: bold;
+}
+
+.Comment-btnBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.Comment-btn {
+  margin: 10px 0;
+  outline: none;
+  cursor: pointer;
+  border: 0;
+  user-select: none;
+  background: none;
+
+  font-size: 16px;
+  color: #195ABB;
+  text-decoration: underline;
+}
+
+.Comment-btn:hover {
+  color: darkblue;
+}

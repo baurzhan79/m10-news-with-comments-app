@@ -14,11 +14,11 @@ export const commentsError = (error) => (
 );
 
 
-export const commentsGetItems = () => {
+export const commentsGetItems = (postId) => {
     return async dispatch => {
         dispatch(commentsRequest());
         try {
-            const response = await axios.get("/comments");
+            const response = await axios.get(`/comments?news_id=${postId}`);
             const items = [];
             if (response.status === 200) { // OK
                 if (response.data !== null) {
@@ -35,7 +35,30 @@ export const commentsGetItems = () => {
                 }
             }
 
-            dispatch(commentsSuccess(orders));
+            dispatch(commentsSuccess(items));
+        } catch (error) {
+            dispatch(commentsError(error));
+        }
+    }
+};
+
+export const commentsRemoveItem = (commentId, postId) => {
+    return async dispatch => {
+        dispatch(commentsRequest());
+        try {
+            await axios.delete(`/comments/${commentId}`);
+            dispatch(commentsGetItems(postId));
+        } catch (error) {
+            dispatch(commentsError(error));
+        }
+    }
+};
+
+export const addNewComment = (comment) => {
+    return async dispatch => {
+        dispatch(commentsRequest());
+        try {
+            await axios.post("/comments", comment);
         } catch (error) {
             dispatch(commentsError(error));
         }
