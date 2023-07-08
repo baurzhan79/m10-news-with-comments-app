@@ -1,0 +1,26 @@
+.Toolbar {
+    min-height: 56px;
+    width: 100%;
+    background: linear-gradient(to bottom, ivory, lightgray);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 90;
+    /* Should be lower than backdrop */
+}
+
+.Toolbar-logo {
+    height: 80%;
+    width: auto;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.Toolbar nav {
+    height: 100%;
+}
