@@ -1,0 +1,8 @@
+.ItemsList {
+  margin: 0 10px;
+}
+
+.ItemsList-title {
+  font-weight: bold;
+  text-align: center;
+}

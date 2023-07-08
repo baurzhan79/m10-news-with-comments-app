@@ -18,7 +18,7 @@ export const commentsGetItems = () => {
     return async dispatch => {
         dispatch(commentsRequest());
         try {
-            const response = await axios.get("/comments.json");
+            const response = await axios.get("/comments");
             const items = [];
             if (response.status === 200) { // OK
                 if (response.data !== null) {
@@ -26,7 +26,7 @@ export const commentsGetItems = () => {
 
                     arrayOfKeys.forEach(currentKey => {
                         items.push({
-                            id: currentKey,
+                            id: response.data[currentKey].id,
                             news_id: response.data[currentKey].news_id,
                             author: response.data[currentKey].author,
                             comment: response.data[currentKey].comment,

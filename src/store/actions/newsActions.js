@@ -18,7 +18,7 @@ export const newsGetItems = () => {
     return async dispatch => {
         dispatch(newsRequest());
         try {
-            const response = await axios.get("/news.json");
+            const response = await axios.get("/news");
             const items = [];
             if (response.status === 200) { // OK
                 if (response.data !== null) {
@@ -26,7 +26,7 @@ export const newsGetItems = () => {
 
                     arrayOfKeys.forEach(currentKey => {
                         items.push({
-                            id: currentKey,
+                            id: response.data[currentKey].id,
                             title: response.data[currentKey].title,
                             image: response.data[currentKey].image,
                             publication_date: response.data[currentKey].publication_date,
@@ -35,6 +35,18 @@ export const newsGetItems = () => {
                 }
             }
             dispatch(newsSuccess(items));
+        } catch (error) {
+            dispatch(newsError(error));
+        }
+    }
+};
+
+export const newsRemoveItem = (id) => {
+    return async dispatch => {
+        dispatch(newsRequest());
+        try {
+            await axios.delete(`/news/${id}`);
+            dispatch(newsGetItems());
         } catch (error) {
             dispatch(newsError(error));
         }
