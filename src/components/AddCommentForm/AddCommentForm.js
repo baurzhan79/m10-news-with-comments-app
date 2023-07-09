@@ -35,7 +35,7 @@ const AddCommentForm = ({ onSubmit, postId }) => {
         formData.append("news_id", postId);
 
         Object.keys(state).forEach(key => {
-            formData.append(key, state[key]);
+            if (state[key] !== "") formData.append(key, state[key]);
         });
         onSubmit(formData);
     };

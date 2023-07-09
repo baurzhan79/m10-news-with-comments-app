@@ -13,7 +13,7 @@ const newsReducer = (state = initialState, action) => {
             return { ...state, loading: true, selectedPost: null }
 
         case NEWS_SUCCESS:
-            return { ...state, loading: false, news: action.responseItems }
+            return { ...state, loading: false, news: action.responseItems, error: null }
 
         case NEWS_ERROR:
             return { ...state, loading: false, error: action.error }

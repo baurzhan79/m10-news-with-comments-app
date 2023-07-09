@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import Spinner from "../../components/UI/Spinner/Spinner";
 import CommentsList from "../../components/CommentsList/CommentsList";
@@ -15,6 +15,7 @@ import { commentsGetItems, commentsRemoveItem, addNewComment } from "../../store
 const FullPost = () => {
     const params = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (params.newsId !== undefined) dispatch(newsGetItem(params.newsId));
@@ -31,12 +32,18 @@ const FullPost = () => {
     const errorMsgComments = useSelector(state => state.comments.error);
 
     useEffect(() => {
-        if (errorMsgNews !== null) console.log("Error with request: ", errorMsgNews);
-    }, [errorMsgNews]);
+        if (errorMsgNews !== null) {
+            console.log("Error with request: ", errorMsgNews);
+            navigate("/");
+        }
+    }, [errorMsgNews, navigate]);
 
     useEffect(() => {
-        if (errorMsgComments !== null) console.log("Error with request: ", errorMsgComments);
-    }, [errorMsgComments]);
+        if (errorMsgComments !== null) {
+            console.log("Error with request: ", errorMsgComments);
+            navigate("/");
+        }
+    }, [errorMsgComments, navigate]);
 
 
     const removeCommentHandler = (comment) => {
